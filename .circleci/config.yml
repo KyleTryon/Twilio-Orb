@@ -15,7 +15,7 @@ jobs:
       - image: singapore/lint-condo
     steps:
       - checkout
-      - run: yamllint -d "{extends:\ relaxed, rules:\ {line-length:\ {max:\ 120}}}" .
+      - run: yamllint -d '{default: relaxed, rules: {line-length: {max: 120}}}' .
 
   validate:
     executor: cli
