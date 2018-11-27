@@ -38,7 +38,7 @@ commands:
           name: Sending SMS
           command: >
               curl -X POST https://api.twilio.com/2010-04-01/Accounts/<< parameters.sid >>/Messages.json \
-              --data-urlencode " << parameters.from >>  " \
+              --data-urlencode "From=<< parameters.from >>" \
               --data-urlencode "Body=<< parameters.body >>" \
               --data-urlencode "To=<< parameters.to >>" \
               -u << parameters.sid >>:<< parameters.authtoken >>
