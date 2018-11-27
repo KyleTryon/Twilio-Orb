@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  twilio: sandbox/twilio@volatile
+
+executors:
+  cli:
+    docker:
+      - image: circleci/circleci-cli:latest
+
+jobs:
+  lint:
+    docker:
+      - image: singapore/lint-condo
+    steps:
+      - checkout
+      - run: yamllint .
+
+  validate:
+    executor: cli
+    steps:
+      - checkout
+      - run: circleci orb validate src/@orb.yml
+  
+  sendsms:
+    docker:
+      - image: circleci/node
+    steps:
+        - run: exit 0 #toggle this to force success or status for testing
+        - twilio/sendsms:
+            body: "New alert via SMS"
