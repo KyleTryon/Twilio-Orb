@@ -46,7 +46,6 @@ workflows:
       - sendsms:
           requires:
             - validate
-          context: orb-publishing
       - publish-dev:
           requires:
             - sendsms
