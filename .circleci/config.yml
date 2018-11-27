@@ -29,3 +29,24 @@ jobs:
         - run: exit 0 #toggle this to force success or status for testing
         - twilio/sendsms:
             body: "New alert via SMS"
+
+  publish-dev:
+      executor: cli
+      steps:
+        - checkout
+        - run: circleci orb publish src/@orb.yml sandbox/twilio@volatile --token $CIRCLE_TOKEN
+
+workflows:
+  validate-test-deploy:
+    jobs:
+      - lint
+      - validate:
+          requires:
+            - lint
+      - sendsms:
+          requires:
+            - validate
+          context: orb-publishing
+      -  publish-dev:
+          requires:
+            - sendsms
