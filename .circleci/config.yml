@@ -1,3 +1,4 @@
+---
 version: 2.1
 
 orbs:
@@ -21,20 +22,19 @@ jobs:
     steps:
       - checkout
       - run: circleci orb validate src/@orb.yml
-  
   sendsms:
     docker:
       - image: circleci/node
     steps:
-        - run: exit 0 #toggle this to force success or status for testing
-        - twilio/sendsms:
-            body: "New alert via SMS"
+      - run: exit 0 #toggle this to force success or status for testing
+      - twilio/sendsms:
+          body: "New alert via SMS"
 
   publish-dev:
-      executor: cli
-      steps:
-        - checkout
-        - run: circleci orb publish src/@orb.yml sandbox/twilio@volatile --token $CIRCLE_TOKEN
+    executor: cli
+    steps:
+      - checkout
+      - run: circleci orb publish src/@orb.yml sandbox/twilio@volatile --token $CIRCLE_TOKEN
 
 workflows:
   validate-test-deploy:
@@ -47,6 +47,6 @@ workflows:
           requires:
             - validate
           context: orb-publishing
-      -  publish-dev:
+      - publish-dev:
           requires:
-            - sendsms
+             - sendsms
