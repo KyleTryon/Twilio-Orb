@@ -78,7 +78,7 @@ commands:
               --data-urlencode "Body=<< parameters.body >>" \
               --data-urlencode "To=<< parameters.to >>" \
               -u << parameters.sid >>:<< parameters.authtoken >>
-          when: on_failure
+          when: on_fail
 #
 # Usage examples of Slack Orb
 #
