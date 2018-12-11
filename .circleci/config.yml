@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  twilio: sandbox/twilio@volatile
+  twilio: sandbox/twilio@dev:master
 
 executors:
   cli:
