@@ -38,7 +38,7 @@ jobs:
     executor: cli
     steps:
       - checkout
-      - run: circleci orb publish src/@orb.yml sandbox/twilio@volatile --token $CIRCLE_TOKEN
+      - run: circleci orb publish src/@orb.yml sandbox/twilio@dev:${CIRCLE_BRANCH} --token $CIRCLE_TOKEN
 
 workflows:
   validate-test-deploy:
