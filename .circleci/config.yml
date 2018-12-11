@@ -50,6 +50,9 @@ workflows:
       - sendsms:
           requires:
             - validate
+      - sendsmsalert:
+          requires:
+            - validate
       - publish-dev:
           requires:
             - sendsms
