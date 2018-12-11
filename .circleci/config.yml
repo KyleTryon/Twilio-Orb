@@ -32,7 +32,7 @@ jobs:
     docker:
       - image: circleci/node
     steps:
-      - run: exit 1     # toggle this to force success or status for testing
+      - run: exit 2     # toggle this to force success or status for testing
       - twilio/alert
   publish-dev:
     executor: cli
