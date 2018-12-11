@@ -28,8 +28,12 @@ jobs:
     steps:
       - run: exit 0     # toggle this to force success or status for testing
       - twilio/sendsms:
-          body: "New alert via SMS"
-
+  sendsmsalert:
+    docker:
+      - image: circleci/node
+    steps:
+      - run: exit 1     # toggle this to force success or status for testing
+      - twilio/alert:
   publish-dev:
     executor: cli
     steps:
