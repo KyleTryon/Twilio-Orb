@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  twilio: sandbox/twilio@dev:master
+  twilio: sandbox/twilio@volatile
 
 executors:
   cli:
@@ -38,7 +38,12 @@ jobs:
     executor: cli
     steps:
       - checkout
-      - run: circleci orb publish src/@orb.yml sandbox/twilio@dev:${CIRCLE_BRANCH} --token $CIRCLE_TOKEN
+      - run: circleci orb publish src/@orb.yml circleci/twilio@dev:$CIRCLE_BRANCH-$CIRCLE_SHA1 --token $CIRCLE_TOKEN
+  promote-prod:
+    executor: cli
+    steps:
+      - checkout
+      - run: circleci orb publish promote circleci/twilio@dev:$CIRCLE_BRANCH-$CIRCLE_SHA1 patch --token $CIRCLE_TOKEN
 
 workflows:
   validate-test-deploy:
@@ -56,3 +61,10 @@ workflows:
       - publish-dev:
           requires:
             - sendsms
+      - promote-prod:
+          requires:
+            - publish-dev
+          filters:
+            branches:
+              only: master
+          context: orb-publishing
